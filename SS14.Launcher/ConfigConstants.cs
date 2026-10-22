@@ -6,7 +6,8 @@ namespace SS14.Launcher;
 
 public static class ConfigConstants
 {
-    public static readonly bool DoVersionCheck = true;
+    // Voice chat fork: the official launcher version check would point players at the official launcher.
+    public static readonly bool DoVersionCheck = false;
 
     // Refresh login tokens if they're within <this much> of expiry.
     public static readonly TimeSpan TokenRefreshThreshold = TimeSpan.FromDays(15);
@@ -54,6 +55,17 @@ public static class ConfigConstants
 
     public static readonly UrlFallbackSet RobustBuildsManifest = RobustBuildsBaseUrl + "manifest.json";
     public static readonly UrlFallbackSet RobustModulesManifest = RobustBuildsBaseUrl + "modules.json";
+
+    /// <summary>
+    /// Voice chat fork: additional engine builds, signed with this fork's own key (signing_key_custom), merged with the
+    /// official manifest. It can only add versions; official versions always win.
+    /// Override with the SS14_LAUNCHER_CUSTOM_ENGINE_MANIFEST environment variable.
+    /// </summary>
+    public static readonly UrlFallbackSet CustomRobustBuildsManifest = new([
+        Environment.GetEnvironmentVariable("SS14_LAUNCHER_CUSTOM_ENGINE_MANIFEST") is { Length: > 0 } customManifest
+            ? customManifest
+            : "https://raw.githubusercontent.com/SkellyVamps/RobustToolbox/robust-builds/manifest.json"
+    ]);
 
     // How long to keep cached copies of Robust manifests.
     // TODO: Take this from Cache-Control header responses instead.

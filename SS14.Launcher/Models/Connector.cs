@@ -517,6 +517,10 @@ public partial class Connector : ObservableObject
             startInfo.EnvironmentVariables[k] = v;
         }
 
+        // Voice chat fork: the loader also accepts engines signed with this fork's key.
+        if (File.Exists(LauncherPaths.PathCustomPublicKey))
+            EnvVar("SS14_LOADER_EXTRA_PUBLIC_KEY", LauncherPaths.PathCustomPublicKey);
+
         EnvVar("SS14_LOADER_CONTENT_DB", LauncherPaths.PathContentDb);
         EnvVar("SS14_LOADER_CONTENT_VERSION", launchInfo.Version.ToString());
         EnvVar("SS14_LOADER_OVERLAY_ZIP", launchInfo.OverlayZip);

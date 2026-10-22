@@ -32,6 +32,8 @@ public static class LauncherPaths
     public static readonly string PathClientStdoutLog = Path.Combine(DirLogs, ClientStdoutLogName);
     public static readonly string PathClientStderrLog = Path.Combine(DirLogs, ClientStderrLogName);
     public static readonly string PathPublicKey = Path.Combine(DirLauncherInstall, "signing_key");
+    // Voice chat fork: key for engine builds from ConfigConstants.CustomRobustBuildsManifest.
+    public static readonly string PathCustomPublicKey = Path.Combine(DirLauncherInstall, "signing_key_custom");
     public static readonly string PathContentDb = Path.Combine(DirLocalData, "content.db");
     public static readonly string PathOverrideAssetsDb = Path.Combine(DirLocalData, "override_assets.db");
 
@@ -97,6 +99,8 @@ public static class LauncherPaths
         if (!string.IsNullOrEmpty(envVar))
             return envVar;
 
-        return "launcher";
+        // Voice chat fork: separate data directory so this launcher and the official one never touch each other's
+        // engine installs, content database or settings.
+        return "launcher-voice";
     }
 }

@@ -152,6 +152,23 @@ internal class Program
         return true;
     }
 
+    /// <summary>
+    /// Voice chat fork: engines published by the fork are signed with a second key, passed by the launcher.
+    /// </summary>
+    private static bool VerifyExtraKey(byte[] robustBytes, byte[] sig)
+    {
+        var extraKeyPath = Environment.GetEnvironmentVariable("SS14_LOADER_EXTRA_PUBLIC_KEY");
+        if (string.IsNullOrEmpty(extraKeyPath) || !File.Exists(extraKeyPath))
+            return false;
+
+        var extraKey = PublicKey.Import(
+            SignatureAlgorithm.Ed25519,
+            File.ReadAllBytes(extraKeyPath),
+            KeyBlobFormat.PkixPublicKeyText);
+
+        return SignatureAlgorithm.Ed25519.Verify(extraKey, robustBytes, sig);
+    }
+
     [STAThread]
     internal static int Main(string[] args)
     {
@@ -172,7 +189,7 @@ internal class Program
 
         var robustBytes = File.ReadAllBytes(robustPath);
 
-        if (!SignatureAlgorithm.Ed25519.Verify(pubKey, robustBytes, sig))
+        if (!SignatureAlgorithm.Ed25519.Verify(pubKey, robustBytes, sig) && !VerifyExtraKey(robustBytes, sig))
         {
             // ONLY allow disabling signing on debug mode.
 #if !RELEASE

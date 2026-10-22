@@ -73,7 +73,38 @@ public sealed partial class EngineManagerDynamic
             await ConfigConstants.RobustBuildsManifest.GetFromJsonAsync<Dictionary<string, VersionInfo>>(
                 _http, cancel);
 
+        await MergeCustomBuildManifest(cancel);
+
         _robustCacheValidUntil = _manifestStopwatch.Elapsed + ConfigConstants.RobustManifestCacheTime;
+    }
+
+    /// <summary>
+    /// Voice chat fork: adds engine versions from <see cref="ConfigConstants.CustomRobustBuildsManifest"/>.
+    /// Official versions are never replaced. Failure to load it only loses the custom versions.
+    /// </summary>
+    private async Task MergeCustomBuildManifest(CancellationToken cancel)
+    {
+        Dictionary<string, VersionInfo>? custom;
+        try
+        {
+            Log.Debug("Loading custom manifest from {manifestUrl}...", ConfigConstants.CustomRobustBuildsManifest);
+            custom = await ConfigConstants.CustomRobustBuildsManifest
+                .GetFromJsonAsync<Dictionary<string, VersionInfo>>(_http, cancel);
+        }
+        catch (Exception e) when (e is not OperationCanceledException)
+        {
+            Log.Warning(e, "Failed to load custom engine manifest, only official engine versions are available");
+            return;
+        }
+
+        if (custom == null || _cachedRobustVersionInfo == null)
+            return;
+
+        foreach (var (version, info) in custom)
+        {
+            if (!_cachedRobustVersionInfo.TryAdd(version, info))
+                Log.Warning("Custom engine manifest tried to override official version {Version}, ignored", version);
+        }
     }
 
     private FoundVersionInfo? FindVersionInfoInCached(string version, bool followRedirects)
