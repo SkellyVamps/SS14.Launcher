@@ -12,4 +12,5 @@ What's different from upstream:
 * Separate data directory (`launcher-voice`) so it never conflicts with an installed official launcher.
 * The official "launcher out of date" check is disabled (it would send players to the official launcher).
 
-Release: push a tag `vX.Y.Z` and `publish-release.yml` builds Windows, macOS and Linux zips into a GitHub release.
+Release: create a GitHub release (new tag `vX.Y.Z`, target `voice-chat`) or push a tag; `publish-release.yml` builds
+Windows, macOS and Linux zips and attaches them to that release.
