@@ -5,6 +5,9 @@ on:
     tags:
     - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   build-windows-bootstrap:
     runs-on: windows-2022
@@ -55,46 +58,12 @@ jobs:
     - name: Create build (Windows)
       run: ./publish.py windows --x64-only
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # Voice chat fork: works whether or not the release was already created from the GitHub web UI.
+    - name: Publish release assets
+      uses: softprops/action-gh-release@v2.0.8
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-
-    # Upload Linux
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./SS14.Launcher_Linux.zip
-        asset_name: SS14.Launcher_Linux.zip
-        asset_content_type: application/zip
-
-    # Upload Windows
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./SS14.Launcher_Windows.zip
-        asset_name: SS14.Launcher_Windows.zip
-        asset_content_type: application/zip
-
-    # Upload macOS
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./SS14.Launcher_macOS.zip
-        asset_name: SS14.Launcher_macOS.zip
-        asset_content_type: application/zip
+        tag_name: ${{ github.ref_name }}
+        files: |
+          ./SS14.Launcher_Linux.zip
+          ./SS14.Launcher_Windows.zip
+          ./SS14.Launcher_macOS.zip
