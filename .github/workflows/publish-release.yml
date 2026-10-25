@@ -30,7 +30,7 @@ jobs:
       with:
         name: "bootstrap"
         retention-days: 1
-        path: "SS14.Launcher.Bootstrap/bin/Release/net10.0-windows/win-x64/publish/Space Station 14 Launcher.exe"
+        path: "SS14.Launcher.Bootstrap/bin/Release/net10.0-windows/win-x64/publish/SS14 Echoes of the Void Launcher.exe"
 
   build:
     runs-on: ubuntu-latest
@@ -64,6 +64,6 @@ jobs:
       with:
         tag_name: ${{ github.ref_name }}
         files: |
-          ./SS14.Launcher_Linux.zip
-          ./SS14.Launcher_Windows.zip
-          ./SS14.Launcher_macOS.zip
+          ./EchoesOfTheVoid_Launcher_Linux.zip
+          ./EchoesOfTheVoid_Launcher_Windows.zip
+          ./EchoesOfTheVoid_Launcher_macOS.zip

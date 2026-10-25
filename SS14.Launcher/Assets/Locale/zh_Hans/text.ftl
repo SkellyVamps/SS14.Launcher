@@ -163,7 +163,7 @@ login-confirmation-button-cancel = 取消
 # Strings for the "register confirmation" view on login
 login-confirmation-busy = 正在登录…
 # Strings for the general main window layout of the launcher
-main-window-title = 14号空间站启动器
+main-window-title = 14号空间站, Echoes of the Void 启动器
 # Strings for the general main window layout of the launcher
 main-window-header-link-discord = Discord
 # Strings for the general main window layout of the launcher

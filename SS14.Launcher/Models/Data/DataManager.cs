@@ -135,12 +135,9 @@ public sealed class DataManager : ObservableObject
 
     public bool HasCustomHubs => Hubs.Count > 0;
 
-    public bool ActuallyMultiAccounts =>
-#if DEBUG
-        true;
-#else
-            GetCVar(CVars.MultiAccounts);
-#endif
+    // Echoes of the Void: multiple accounts are always on, so players can go back to the login screen and switch
+    // between saved accounts from the account menu.
+    public bool ActuallyMultiAccounts => true;
 
     public void AddFavoriteServer(FavoriteServer server)
     {

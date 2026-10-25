@@ -5,11 +5,11 @@
     <key>CFBundleName</key>
     <string>SS14</string>
     <key>CFBundleDisplayName</key>
-    <string>Space Station 14</string>
+    <string>Space Station 14, Echoes of the Void</string>
     <key>CFBundleExecutable</key>
     <string>SS14</string>
     <key>CFBundleIdentifier</key>
-    <string>com.spacestation14.loader</string>
+    <string>com.skellyvamps.echoesofthevoid.loader</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.games</string>
     <key>LSArchitecturePriority</key>

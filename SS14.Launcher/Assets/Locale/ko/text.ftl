@@ -104,5 +104,5 @@ login-expired-title = 로그인이 만료되었습니다
 login-confirmation-confirmation-title = 회원가입 인증
 login-forgot-message = 비밀번호를 잊으셨다면, 여기에 계정에 연결된 이메일 주소를 입력하여 비밀번호 재설정 링크를 받을 수 있습니다.
 login-login-username-watermark = 사용자 이름 또는 이메일
-main-window-title = Space Station 14 런처
+main-window-title = Space Station 14, Echoes of the Void 런처
 main-window-header-link-discord = 디스코드

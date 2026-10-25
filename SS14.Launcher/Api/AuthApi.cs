@@ -64,7 +64,7 @@ public sealed class AuthApi
                 new[] { "Server sent invalid response" },
                 AuthenticateDenyResponseCode.UnknownError);
         }
-        catch (HttpRequestException httpE)
+        catch (Exception httpE) when (httpE is HttpRequestException or AggregateException) // Voice chat fork: all fallback URLs failing arrives as AggregateException
         {
             Log.Error(httpE, "HttpRequestException in AuthenticateAsync");
             HttpSelfTest.StartSelfTest();
@@ -107,7 +107,7 @@ public sealed class AuthApi
             Log.Error(e, "JsonException in RegisterAsync");
             return new RegisterResult(new[] { "Server sent invalid response" });
         }
-        catch (HttpRequestException httpE)
+        catch (Exception httpE) when (httpE is HttpRequestException or AggregateException) // Voice chat fork: all fallback URLs failing arrives as AggregateException
         {
             Log.Error(httpE, "HttpRequestException in RegisterAsync");
             HttpSelfTest.StartSelfTest();
@@ -136,7 +136,7 @@ public sealed class AuthApi
             Log.Debug("Response for error:\n{response}\n{content}", resp, await resp.Content.ReadAsStringAsync());
             return new[] { "Server returned unknown error" };
         }
-        catch (HttpRequestException httpE)
+        catch (Exception httpE) when (httpE is HttpRequestException or AggregateException) // Voice chat fork: all fallback URLs failing arrives as AggregateException
         {
             Log.Error(httpE, "HttpRequestException in ForgotPasswordAsync");
             return new[] { $"Connection error to authentication server: {httpE.Message}" };
@@ -163,7 +163,7 @@ public sealed class AuthApi
             Log.Debug("Response for error:\n{response}\n{content}", resp, await resp.Content.ReadAsStringAsync());
             return new[] { "Server returned unknown error" };
         }
-        catch (HttpRequestException httpE)
+        catch (Exception httpE) when (httpE is HttpRequestException or AggregateException) // Voice chat fork: all fallback URLs failing arrives as AggregateException
         {
             Log.Error(httpE, "HttpRequestException in ResendConfirmationAsync");
             HttpSelfTest.StartSelfTest();
@@ -205,7 +205,7 @@ public sealed class AuthApi
 
             throw new AuthApiException($"Server returned unexpected HTTP status code: {resp.StatusCode}");
         }
-        catch (HttpRequestException httpE)
+        catch (Exception httpE) when (httpE is HttpRequestException or AggregateException) // Voice chat fork: all fallback URLs failing arrives as AggregateException
         {
             Log.Error(httpE, "HttpRequestException in ResendConfirmationAsync");
             HttpSelfTest.StartSelfTest();
@@ -237,7 +237,7 @@ public sealed class AuthApi
             Log.Error("Server returned unexpected HTTP status code: {responseCode}", resp.StatusCode);
             Log.Debug("Response for error:\n{response}\n{content}", resp, await resp.Content.ReadAsStringAsync());
         }
-        catch (HttpRequestException httpE)
+        catch (Exception httpE) when (httpE is HttpRequestException or AggregateException) // Voice chat fork: all fallback URLs failing arrives as AggregateException
         {
             // Does it make sense to just... swallow this exception? The token will stay "active" until it expires.
             Log.Error(httpE, "HttpRequestException in LogoutTokenAsync");
@@ -280,7 +280,7 @@ public sealed class AuthApi
             Log.Debug("Response for error:\n{response}\n{content}", resp, await resp.Content.ReadAsStringAsync());
             throw new AuthApiException($"Server returned unexpected HTTP status code: {resp.StatusCode}");
         }
-        catch (HttpRequestException httpE)
+        catch (Exception httpE) when (httpE is HttpRequestException or AggregateException) // Voice chat fork: all fallback URLs failing arrives as AggregateException
         {
             // Does it make sense to just... swallow this exception? The token will stay "active" until it expires.
             Log.Error(httpE, "HttpRequestException in CheckTokenAsync");

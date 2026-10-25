@@ -7,6 +7,8 @@ account-drop-down-log-out-of = Log out of { $name }
 account-drop-down-switch-account = Switch account:
 account-drop-down-select-account = Select account:
 account-drop-down-add-account = Add account
+account-drop-down-back-to-login = Back to login screen
+account-drop-down-back-to-login-tooltip = Log in with another account. You stay logged in to this one and can switch back from this menu.
 
 ## Localization for the "add favorite server" dialog window
 
@@ -155,7 +157,7 @@ login-confirmation-busy = Logging in…
 
 ## Strings for the general main window layout of the launcher
 
-main-window-title = Space Station 14 Launcher
+main-window-title = Space Station 14, Echoes of the Void Launcher
 main-window-header-link-discord = Discord
 main-window-header-link-website = Website
 main-window-out-of-date = Launcher out of date

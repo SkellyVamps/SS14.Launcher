@@ -5,5 +5,5 @@ files: ["icon.ico"]
 
 - files: ["logo-long.png"]
   license: "CC-BY-SA-4.0"
-  copyright: "By AftrLite"
+  copyright: "By AftrLite. Modified to add the \"Echoes of the Void\" subtitle (set in Noto Sans Display, OFL)"
   source: "https://github.com/space-wizards/SS14.Launcher/pull/290/"
