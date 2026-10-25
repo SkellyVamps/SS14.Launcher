@@ -4,6 +4,13 @@ on:
   push:
     tags:
     - 'v*'
+  # Voice chat fork: run from the Actions tab on the voice-chat branch. The release and its tag are created on the
+  # commit that was built, so the tag can't end up pointing somewhere else.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to create, e.g. v0.40.3-voice4"
+        required: true
 
 permissions:
   contents: write
@@ -62,7 +69,8 @@ jobs:
     - name: Publish release assets
       uses: softprops/action-gh-release@v2.0.8
       with:
-        tag_name: ${{ github.ref_name }}
+        tag_name: ${{ inputs.tag || github.ref_name }}
+        target_commitish: ${{ github.sha }}
         files: |
           ./EchoesOfTheVoid_Launcher_Linux.zip
           ./EchoesOfTheVoid_Launcher_Windows.zip

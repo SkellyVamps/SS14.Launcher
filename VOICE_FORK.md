@@ -19,5 +19,8 @@ What's different from upstream:
   lists saved accounts to switch between.
 * Failing to reach the auth server (offline, auth outage) shows an error instead of crashing on startup.
 
-Release: create a GitHub release (new tag `vX.Y.Z`, target `voice-chat`) or push a tag; `publish-release.yml` builds
-Windows, macOS and Linux zips and attaches them to that release.
+Release (easiest): Actions -> Publish Release -> Run workflow, branch `voice-chat`, enter a new tag (e.g.
+`v0.40.3-voice4`). It builds Windows, macOS and Linux zips and creates the release and tag on that exact commit.
+
+Alternatively create a GitHub release with a new tag whose **target is `voice-chat`** (not `master`, which is plain
+upstream), or push a tag; `publish-release.yml` attaches the zips to it.
