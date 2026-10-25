@@ -52,7 +52,8 @@ public class App : Application
         LoadBaseAssets();
         IconsLoader.Load(this);
 
-        _overrideAssets.AssetsChanged += OnAssetsChanged;
+        // Echoes of the Void: the official seasonal logos and icons would replace this launcher's own branding, so
+        // they are never applied (upstream subscribes OnAssetsChanged to _overrideAssets.AssetsChanged here).
     }
 
     private void LoadBaseAssets()

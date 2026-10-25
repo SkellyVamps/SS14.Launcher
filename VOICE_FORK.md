@@ -13,7 +13,8 @@ What's different from upstream:
 * The official "launcher out of date" check is disabled (it would send players to the official launcher).
 * Branded "Space Station 14, Echoes of the Void": window title, header logo, app names
   (`SS14 Echoes of the Void Launcher.exe` / `.app`), its own macOS bundle identifiers, release zips named
-  `EchoesOfTheVoid_Launcher_<platform>.zip`.
+  `EchoesOfTheVoid_Launcher_<platform>.zip`. The official seasonal logo/icon overrides are never applied (they would
+  replace the fork's branding), and their option is hidden.
 * Multiple accounts are always on: the account menu has "Back to login screen" to log in with another account, and
   lists saved accounts to switch between.
 * Failing to reach the auth server (offline, auth outage) shows an error instead of crashing on startup.
